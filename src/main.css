@@ -1,0 +1,20 @@
+*{
+    margin: 0;padding: 0;
+}
+ul{list-style:none;}
+img{
+    display: block;
+}
+body {
+    background:red;
+    height: 2000px;
+}
+.clearfix::after{content: "";display: block;clear: both;}
+
+#list{width: 1226px;margin: 20px auto;}
+#list .list-wrap{width: 1240px;}
+#list .list-wrap li{float: left;width: 296px;height: auto;margin-right: 14px;}
+#list .list-wrap div{}
+#list .list-wrap img{width: 296px;}
+#list .list-wrap i{}
+#list .list-wrap h3{}
