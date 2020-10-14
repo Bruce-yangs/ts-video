@@ -1,5 +1,6 @@
 import './main.css'
 import './iconfont/iconfont.css'
+import popup from './components/popup/popup'
 
 // let a: string = "hello1";
 
@@ -12,5 +13,6 @@ for(let i=0;i<listItem.length;i++) {
         let url = this.dataset.url;
         let title = this.dataset.title;
         console.log(title,url)
+        popup({width:'200px'});
     })
 }
