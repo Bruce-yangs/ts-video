@@ -19,7 +19,24 @@ module.exports = {
   module: {
     rules: [{
       test: /\.css$/,
-      use: ['style-loader', 'css-loader']
+      use: ['style-loader', 'css-loader'],
+      exclude:[
+        path.resolve(__dirname,'src/components')
+      ]
+    },{
+      test: /\.css$/,
+      use: ['style-loader',{//模块化局部样式配置
+        loader:'css-loader',
+        options: {
+          // modules: true
+          modules: {
+            localIdentName: '[path][name]__[local]--[hash:base64:5]',
+          }
+        }
+      }],
+      include:[
+        path.resolve(__dirname,'src/components')
+      ]
     },{
       test:/\.(eot|woff2|woff|ttf|svg)$/,
       use:['file-loader']

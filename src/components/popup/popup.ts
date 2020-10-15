@@ -1,3 +1,6 @@
+// import './popup.css'
+//import styles from './popup.css'; // import 引入css 在ts情况下 需要声明文件与相关css 保持名字一直 文件以xxx.css.d.ts结尾
+let styles = require('./popup.css');
 
 //接口 interface 概念:可以用来约束一个函数,对象,以及类的结构和类型
 interface Ipopup {
@@ -41,7 +44,7 @@ class Popup implements Icomponent {
     template(){
         this.tempContainer = document.createElement('div');
         this.tempContainer.innerHTML = `
-            <h1>hello</h1>
+            <h1 class='${styles.popup}'>hello</h1>
         `;
         document.body.appendChild(this.tempContainer);
     };
