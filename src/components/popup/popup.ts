@@ -9,7 +9,7 @@ interface Ipopup {
     title?: string;//标题文案
     pos?: string;//位置
     mask?: boolean;//是否显示遮罩
-    content?:()=>void;//显示内容
+    content?:(content: HTMLElement)=> void;//显示内容
 }
 function popup(options:Ipopup){
     return new Popup(options);
@@ -26,6 +26,7 @@ interface Icomponent{
 class Popup implements Icomponent {
     //声明接口 属性
     tempContainer;
+    mask;
     constructor(private settings:Ipopup){
         this.settings = Object.assign({//设置默认值
             width: '100%',
@@ -40,15 +41,49 @@ class Popup implements Icomponent {
     };
     init(){
         this.template();
+        this.handle();
+        this.contentCallback();
     };
     template(){
+        this.settings.mask && this.createMask();
         this.tempContainer = document.createElement('div');
+        this.tempContainer.style.width = this.settings.width;
+        this.tempContainer.style.height = this.settings.height;
+        this.tempContainer.className = styles.popup;
         this.tempContainer.innerHTML = `
-            <h1 class='${styles.popup}'>hello</h1>
+            <div class=" ${styles['popup-title']}">
+                <h3>${this.settings.title}</h3>
+                <i class="iconfont iconguanbi"></i>
+            </div>
+            <div class="popup-content ${styles['popup-content']}">
+            
+            </div>
         `;
+        if(this.settings.pos === 'left'){
+            this.tempContainer.className = styles.left;
+        }else if(this.settings.pos === 'right'){
+            this.tempContainer.className = styles.right;
+        } else {
+            this.tempContainer.className = styles.center;
+        }
         document.body.appendChild(this.tempContainer);
     };
-    handle(){};
+    handle(){
+        let closeDom = this.tempContainer.querySelector('.iconguanbi');
+        closeDom.addEventListener('click',()=>{
+            document.body.removeChild(this.tempContainer);
+            this.settings.mask && document.body.removeChild(this.mask);
+        });
+    };
+    createMask(){
+        this.mask = document.createElement('div');
+        this.mask.className = styles.mask;
+        document.body.appendChild(this.mask);
+    }
+    contentCallback() {
+        let content = this.tempContainer.querySelector(`.popup-content`);
+        this.settings.content(content);
+    }
 }
 
 export default popup;
