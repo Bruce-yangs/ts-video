@@ -1,6 +1,7 @@
 import './main.css'
 import './iconfont/iconfont.css'
 import popup from './components/popup/popup'
+import video from './components/video/video'
 
 // let a: string = "hello1";
 
@@ -14,8 +15,9 @@ for (let i = 0; i < listItem.length; i++) {
         let title = this.dataset.title;
         console.log(title, url)
 
-        popup({ width: '880px', height: '556px', title, pos: 'center', mask: true ,content(ele){
-            console.log(ele);
+        popup({ width: '880px', height: '556px', title, pos: 'center', mask: true ,content(elem){
+            console.log(elem);
+            video({url,elem});
         }});
     })
 }
