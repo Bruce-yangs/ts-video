@@ -36,12 +36,14 @@ class Video implements Icomponent{
     }
     template(){
         this.dom = document.createElement('div');
-        this.dom.className =styles.video;
+        this.dom.className = styles.video;
+        /* this.dom.style.width = this.settings.width;
+        this.dom.style.height = this.settings.height; */
         this.dom.style =  {
             width:this.settings.width,
             height:this.settings.height
         };
-        this.dom.innerHtml = `
+        this.dom.innerHTML = `
             <video class="${styles['video-content']}" src="${this.settings.url}"></video>
             <div class="${styles['video-controls']}">
                 <div class="${styles['video-progress']}">
