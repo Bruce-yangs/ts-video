@@ -77,6 +77,45 @@ class Video implements Icomponent{
         }
     }
     handle(){
+        let videoContent = this.dom.querySelector(`.${styles['video-content']}`);
+        let videoControls= this.dom.querySelector(`.${styles['video-controls']}`);
+        let videoPlay= this.dom.querySelector(`.${styles['video-controls']} i`);
+
+        //canpaly -->监听是否加载完毕
+        videoContent.addEventListener('canplay',()=>{
+            console.log('canplay');
+
+        });
+        //视频播放事件
+        videoContent.addEventListener('play',()=>{
+            console.log('play');
+            videoPlay.className = 'iconfont iconzanting ';
+        });
+        //视频暂停事件
+        videoContent.addEventListener('pause',()=>{
+            console.log('pause');
+            videoPlay.className = 'iconfont iconbofang';
+
+        });
+        
+        //视频暂停事件
+        videoContent.addEventListener('click',()=>{
+            if(videoContent.paused) {
+                videoContent.play();
+            } else {    
+                videoContent.pause();
+            }
+            console.log('xxx');
+        });
+        //视频暂停事件
+        videoPlay.addEventListener('click',()=>{
+            if(videoContent.paused) {
+                videoContent.play();
+            } else {    
+                videoContent.pause();
+            }
+            console.log('x111xx');
+        });
 
     }
 }
