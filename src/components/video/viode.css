@@ -107,6 +107,6 @@
     margin:-4px 0 0 -7px;
     z-index: 2;
 }
-.video i {
+video, i {
     cursor: pointer;
 }

@@ -77,13 +77,16 @@ class Video implements Icomponent{
         }
     }
     handle(){
-        let videoContent = this.dom.querySelector(`.${styles['video-content']}`);
+        let videoContent: HTMLVideoElement = this.dom.querySelector(`.${styles['video-content']}`);
         let videoControls= this.dom.querySelector(`.${styles['video-controls']}`);
         let videoPlay= this.dom.querySelector(`.${styles['video-controls']} i`);
-
+        let videoTimes= this.dom.querySelectorAll(`.${styles['video-time']} span`);
+        let videoFull= this.dom.querySelector(`.${styles['video-full']} i`);
+        let timer;
         //canpaly -->监听是否加载完毕
         videoContent.addEventListener('canplay',()=>{
             console.log('canplay');
+            videoTimes[1].innerHTML = formatTime(videoContent.duration);
 
         });
         //视频播放事件
@@ -102,12 +105,16 @@ class Video implements Icomponent{
         videoContent.addEventListener('click',()=>{
             if(videoContent.paused) {
                 videoContent.play();
+               timer = setInterval(()=>{
+                    playing();
+                },1000)
             } else {    
                 videoContent.pause();
+                clearInterval(timer);
             }
             console.log('xxx');
         });
-        //视频暂停事件
+        //点击icon视频暂停事件
         videoPlay.addEventListener('click',()=>{
             if(videoContent.paused) {
                 videoContent.play();
@@ -116,6 +123,29 @@ class Video implements Icomponent{
             }
             console.log('x111xx');
         });
+        
+        //点击视频全屏事件
+        videoFull.addEventListener('click',()=>{
+            videoContent.requestFullscreen();
+        });
+
+        
+        
+        //正在播放进度
+        function playing() {
+            videoTimes[0].innerHTML = formatTime(videoContent.currentTime);
+        }
+
+        function formatTime(number:number):string{
+             number = Math.round(number);//四舍五入
+            let min = Math.floor(number/60);
+            let sec = number%60;//余
+            return setZero(min) + ':' + setZero(sec);
+        }
+
+        function setZero(number:number):string{
+           return  number>=10?'' +number:'0'+number;
+       }
 
     }
 }
