@@ -26,7 +26,7 @@ class Video implements Icomponent{
             width:'100%',
             height:'100%',
             autoplay:false,
-        },this.settings)
+        },this.settings) 
         this.init();
     }
     init(){
@@ -82,11 +82,20 @@ class Video implements Icomponent{
         let videoPlay= this.dom.querySelector(`.${styles['video-controls']} i`);
         let videoTimes= this.dom.querySelectorAll(`.${styles['video-time']} span`);
         let videoFull= this.dom.querySelector(`.${styles['video-full']} i`);
+        let vprogress= this.dom.querySelector(`.${styles['video-progress']} `);
         let videoProgress= this.dom.querySelectorAll(`.${styles['video-progress']} div`);
         let videoVolprogress= this.dom.querySelectorAll(`.${styles['video-volprogress']} div`);
         let timer;
 
+        //音量
         videoContent.volume = .5;
+
+        //是否自动播放
+        if(this.settings.autoplay) {
+            timer = setInterval(playing,1000);
+            videoContent.play();
+        }
+
         //canpaly -->监听是否加载完毕
         videoContent.addEventListener('canplay',()=>{
             console.log('canplay');
@@ -132,6 +141,57 @@ class Video implements Icomponent{
         videoFull.addEventListener('click',()=>{
             videoContent.requestFullscreen();
         });
+
+
+
+        //点击视频条播放
+        // vprogress.addEventListener('click',function(ev){         
+        //     console.log('videoProgress')
+        // /* console.log(videoProgress)
+        // let downX = ev.pageX;   
+        // let downL = videoProgress[2].offsetLeft; 
+        // console.log(downX)
+        // console.log(downL) */  
+        // console.log(ev.pageX)  
+        // console.log(this.offsetWidth) 
+        // console.log(ev.pageX/this.offsetWidth) 
+        
+
+        // /* ev = window.event||ev;
+        // //    console.log(ev.clientX);
+        // //    console.log(proWrap.offsetLeft);
+        // var detal = ev.clientX - videoProgress[2].offsetLeft - this.offsetLeft;
+        // console.log(videoProgress[2].offsetLeft);
+        // videoProgress[2].style.left = detal + 'px';
+        // videoProgress[0].style.width = detal + 'px';
+        // videoProgress[1].style.width = detal + 'px';
+        //     var nowtime = (detal/this.offsetLeft)*videoContent.duration;
+        //     videoContent.currentTime = detal*videoContent.duration; */
+
+
+
+
+
+        //     let scale = ev.pageX/this.offsetWidth;
+        //     if(scale<0){
+        //         scale=0;
+        //     }else if(scale>1){
+        //        scale=1;
+        //     }
+
+        //     // //设置移动的样式
+        //     videoProgress[0].style.width = scale*100+'%';
+        //     videoProgress[1].style.width = scale*100+'%';
+        //     this.style.left = scale*100+'%';
+        //     // //设置当前拖拽后的播放时间 根据当前进度比例 乘以总时间 得出当前时间
+        //     videoContent.currentTime = scale*videoContent.duration;
+
+
+
+        //     ev.preventDefault();
+        // })
+
+
 
         //点击视频条拖拽播放
         videoProgress[2].addEventListener('mousedown',function(ev:MouseEvent){         

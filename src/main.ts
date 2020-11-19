@@ -17,7 +17,7 @@ for (let i = 0; i < listItem.length; i++) {
 
         popup({ width: '880px', height: '556px', title, pos: 'center', mask: true ,content(elem){
             console.log(elem);
-            video({url,elem});
+            video({url,elem,autoplay:true});
         }});
     })
 }
